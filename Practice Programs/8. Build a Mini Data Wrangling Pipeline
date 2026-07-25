@@ -1,0 +1,15 @@
+import pandas as pd
+
+csv_data = pd.read_csv("students.csv")
+json_data = pd.read_json("students.json")
+xml_data = pd.read_xml("students.xml")
+
+combined = pd.concat([csv_data, json_data, xml_data])
+
+combined = combined.drop_duplicates()
+
+combined = combined.fillna("Unknown")
+
+combined.to_csv("final_dataset.csv", index=False)
+
+print(combined)

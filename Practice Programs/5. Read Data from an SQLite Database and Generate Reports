@@ -1,0 +1,15 @@
+import sqlite3
+import pandas as pd
+
+conn = sqlite3.connect("college.db")
+
+query = "SELECT * FROM Students"
+df = pd.read_sql(query, conn)
+
+print(df)
+
+filtered = df[df["Marks"] > 70]
+
+filtered.to_csv("high_marks.csv", index=False)
+
+conn.close()

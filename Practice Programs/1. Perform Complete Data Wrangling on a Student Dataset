@@ -1,0 +1,26 @@
+import pandas as pd
+
+# Read CSV
+df = pd.read_csv("students.csv")
+
+# Remove duplicate records
+df = df.drop_duplicates()
+
+# Handle missing values
+df["Name"] = df["Name"].fillna("Unknown")
+df["Marks"] = df["Marks"].fillna(df["Marks"].mean())
+
+# Rename columns
+df.rename(columns={
+    "StudID": "StudentID",
+    "Dept": "Department"
+}, inplace=True)
+
+# Change data types
+df["StudentID"] = df["StudentID"].astype(int)
+df["Marks"] = df["Marks"].astype(float)
+
+# Save cleaned dataset
+df.to_csv("students_cleaned.csv", index=False)
+
+print(df)

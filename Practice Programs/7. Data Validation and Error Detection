@@ -1,0 +1,28 @@
+import pandas as pd
+
+df = pd.read_csv("students.csv")
+
+# Missing values
+print(df.isnull().sum())
+
+# Duplicate records
+print("Duplicates:", df.duplicated().sum())
+
+# Invalid Emails
+invalid_email = df[~df["Email"].str.contains("@", na=False)]
+
+# Invalid Phone Numbers
+invalid_phone = df[df["Phone"].astype(str).str.len() != 10]
+
+# Negative Marks
+negative_marks = df[df["Marks"] < 0]
+
+print(invalid_email)
+print(invalid_phone)
+print(negative_marks)
+
+# Clean dataset
+df = df.drop_duplicates()
+df = df[df["Marks"] >= 0]
+
+df.to_csv("validated_students.csv", index=False)
